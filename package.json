@@ -22,7 +22,8 @@
     "eslint-config-mcr-codes": "^1.2.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "jest": "^23.5.0"
+    "jest": "^23.5.0",
+    "node-mocks-http": "^1.7.0"
   },
   "dependencies": {
     "express": "^4.16.3"
