@@ -8,4 +8,6 @@ it('returns a hello world object', () => {
   });
   const response = httpMocks.createResponse();
   helloWorld(request, response);
+
+  expect(response._getData().message).toBe('Hello World!');
 });
