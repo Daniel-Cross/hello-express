@@ -21,11 +21,11 @@ it('creates a new shopping list', done => {
   createShoppingList(request, response);
 
   response.on('end', () => {
-    const fileName = response._getData().fileName;
+    const filename = response._getData().filename;
     const filePath = path.join(
       __dirname,
       '../controllers/shoppingLists',
-      fileName
+      filename
     );
     fs.readFile(filePath, 'utf8', (error, data) => {
       expect(data).toBe(JSON.stringify(body));
