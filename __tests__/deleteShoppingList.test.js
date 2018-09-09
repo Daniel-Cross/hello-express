@@ -1,10 +1,9 @@
-const updateShoppingList = require('../controllers/updateShoppingList');
-
+const deleteShoppingList = require('../controllers/deleteShoppingList');
 const fs = require('fs');
 const path = require('path');
 const httpMocks = require('node-mocks-http');
 
-it('updates an existing shopping list', done => {
+it('deletes and existing shopping list', done => {
   expect.assertions(1);
 
   const filename = Date.now().toString();
@@ -14,30 +13,25 @@ it('updates an existing shopping list', done => {
     filename
   );
 
-  const body = {
-    items: ['carrots', 'crunchies', 'cornflakes']
-  };
-
-  fs.writeFile(filePath, body, err => {
+  fs.writeFile(filePath, 'Ziggy thunder pants', err => {
     if (err) throw err;
 
     const request = httpMocks.createRequest({
-      method: 'PUT',
+      method: 'DELETE',
       url: '/shopping-lists/:filename',
       params: {
         filename: filename
-      },
-      body: body
+      }
     });
 
     const response = httpMocks.createResponse({
       eventEmitter: require('events').EventEmitter
     });
-    updateShoppingList(request, response);
+
+    deleteShoppingList(request, response);
     response.on('end', () => {
-      fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) throw err;
-        expect(data).toBe(JSON.stringify(body));
+      fs.stat(filePath, (err, stats) => {
+        expect(err.code).toBe('ENOENT');
         done();
       });
     });
