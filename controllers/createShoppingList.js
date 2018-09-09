@@ -2,16 +2,16 @@ const fs = require('fs');
 const path = require('path');
 
 const createShoppingList = (req, res) => {
-  const fileName = Date.now().toString();
+  const filename = Date.now().toString();
   const contents = JSON.stringify(req.body);
 
   fs.writeFile(
-    path.join(__dirname, 'shoppingLists', fileName),
+    path.join(__dirname, 'shoppingLists', filename),
     contents,
     err => {
       if (err) throw err;
 
-      res.send({ fileName });
+      res.send({ filename });
     }
   );
 };
