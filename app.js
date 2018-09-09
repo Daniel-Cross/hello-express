@@ -1,8 +1,12 @@
 const express = require('express');
-const hellWorld = require('./controllers/helloWorld');
+const bodyParser = require('body-parser');
+const helloWorld = require('./controllers/helloWorld');
+const createShoppingList = require('./controllers/createShoppingList');
 
 const app = express();
+app.use(bodyParser.json());
 
-app.get('/', hellWorld);
+app.get('/', helloWorld);
+app.post('/shopping-lists', createShoppingList);
 
 app.listen(3000, () => console.log('App listening on port 3000'));
